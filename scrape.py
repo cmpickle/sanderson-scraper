@@ -1,24 +1,31 @@
-# import libraries
-import urllib.request
-# import ssl
+import requests
 from bs4 import BeautifulSoup
-
-# TODO: this should be removed later
-# ssl._create_default_https_context = ssl._create_unverified_context
-
-print("Hello, World!")
 
 # specify the url
 url = 'https://brandonsanderson.com/'
 
 # query the website and return the html to the variable 'page'
-request = urllib.request.Request(url)
-response = urllib.request.urlopen(request)
+page = requests.get(url)
 
 # parse the html using beautiful soup and store in variable `soup`
-soup = BeautifulSoup(response, 'html.parser')
+soup = BeautifulSoup(page.text, 'html.parser')
 
-# Take out the <div> of name and get its value
-name_box = soup.find('span', attrs={'class': 'book-title'})
+# get progress bar div to limit the page
+progress_bar = soup.find('div', attrs={'class': 'progress-titles'})
 
-print(name_box)
+# get list of book titles
+name_box = soup.find_all('span', attrs={'class': 'book-title'})
+
+# get progress of the books
+status_box = soup.find_all('div', attrs={'class': 'progress'})
+
+if len(name_box) != len(status_box) or len(name_box) == 0 or len(status_box) == 0: 
+    raise RuntimeError("Titles and Status arrays don't match.")
+else:
+    final_output = ""
+    index = 0
+    while index < len(name_box):
+        final_output += (name_box[index].text + ": " + status_box[index].find('div', attrs={'class': 'after'}).text + "\n")
+        index += 1
+
+    print(final_output)
