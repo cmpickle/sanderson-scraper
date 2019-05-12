@@ -19,11 +19,14 @@ name_box = soup.find_all('span', attrs={'class': 'book-title'})
 # get progress of the books
 status_box = soup.find_all('div', attrs={'class': 'progress'})
 
+# if problem with scrapping
 if len(name_box) != len(status_box) or len(name_box) == 0 or len(status_box) == 0: 
     raise RuntimeError("Titles and Status arrays don't match.")
+# handle the data scrapped
 else:
     final_output = ""
     index = 0
+    # create data string to be sent
     while index < len(name_box):
         final_output += (name_box[index].text + ": " + status_box[index].find('div', attrs={'class': 'after'}).text + "\n")
         index += 1
