@@ -11,24 +11,37 @@ page = requests.get(url)
 soup = BeautifulSoup(page.text, 'html.parser')
 
 # get progress bar div to limit the page
-progress_bar = soup.find('div', attrs={'class': 'progress-titles'})
+progress_bar = soup.find(attrs={'class': 'progress-titles'})
 
 # get list of book titles
-name_box = soup.find_all('span', attrs={'class': 'book-title'})
+name_box = progress_bar.find_all(attrs={'class': 'book-title'})
 
 # get progress of the books
-status_box = soup.find_all('div', attrs={'class': 'progress'})
+status_box = progress_bar.find_all(attrs={'class': 'progress'})
 
 # if problem with scrapping
 if len(name_box) != len(status_box) or len(name_box) == 0 or len(status_box) == 0: 
     raise RuntimeError("Titles and Status arrays don't match.")
+    
 # handle the data scrapped
 else:
-    final_output = ""
+    final_output = "Brandon Sanderson Status Update:"
     index = 0
     # create data string to be sent
     while index < len(name_box):
-        final_output += (name_box[index].text + ": " + status_box[index].find('div', attrs={'class': 'after'}).text + "\n")
+        final_output += ("\n   " + name_box[index].text + " - " + status_box[index].find('div', attrs={'class': 'after'}).text)
         index += 1
 
-    print(final_output)
+    try:
+        save_file = open("lastupdate", "r")
+        last_update = save_file.read()
+        save_file.close()
+    except IOError:
+        last_update = ""
+
+    # new update so update and send message(s)
+    if last_update != final_output:
+        save_file = open("lastupdate", "w")
+        save_file.write(final_output)
+        save_file.close()
+        print(final_output)
