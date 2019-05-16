@@ -4,7 +4,12 @@
             "number": 8395555013,
             "carrier": "tmobile",
             "location_path": "text"
+        },
+        {
+            "number": 7295558392,
+            "carrier": "bellmobilitycanada",
+            "location_path": "canada"
         }
     ],
-    "url": "http://www.textbelt.com/"
+    "url": "http://192.168.0.1:9090/"
 }
