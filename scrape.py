@@ -59,8 +59,6 @@ else:
     except IOError:
         last_update = ""
 
-    
-
     # new update so update and send message(s)
     if last_update != final_output:
         print(final_output)
