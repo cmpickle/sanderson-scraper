@@ -49,7 +49,7 @@ else:
     index = 0
     # create data string to be sent
     while index < len(name_box):
-        final_output += ("\n   " + name_box[index].text + " - " + status_box[index].find('div', attrs={'class': 'after'}).text)
+        final_output += ("<br>  " + name_box[index].text + " - " + status_box[index].find('div', attrs={'class': 'after'}).text)
         index += 1
 
     try:
