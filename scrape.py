@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 from bs4 import BeautifulSoup
 
 def send_texts(message):
@@ -20,7 +21,8 @@ def send_texts(message):
             response = requests.post(url, headers=headers, data=json.dumps(payload))
             response.raise_for_status()
             print(user['number'], " - ", response.json())
-
+print("------------------------------------------------------------------------")
+print(datetime.datetime.now())
 # specify the url
 url = 'https://brandonsanderson.com/'
 
