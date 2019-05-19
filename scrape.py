@@ -1,13 +1,14 @@
 import requests
 import json
 import datetime
+import os
 from bs4 import BeautifulSoup
 
-def send_texts(message):
+def send_texts(message, config_file):
     headers = {
         'Content-Type': 'application/json',
     }
-    with open('config.json') as json_file:
+    with open(config_file) as json_file:
         config = json.load(json_file)
         url_base = config['url']
         for user in config['all_users']:
@@ -17,17 +18,27 @@ def send_texts(message):
                 'message': message,
                 'carrier': user['carrier'],
             }
-            url = url_base + user['location_path']
-            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            text_url = url_base + user['location_path']
+            response = requests.post(text_url, headers=headers, data=json.dumps(payload))
             response.raise_for_status()
             print(user['number'], " - ", response.json())
+
+# output for logging            
 print("------------------------------------------------------------------------")
 print(datetime.datetime.now())
+
+# get path for project (this is needed to use crontab in linux)
+project_path = os.path.realpath(__file__)
+
+# set file names
+last_update_file = project_path + "/lastupdate"
+config_file = project_path + "/config.json"
+
 # specify the url
-url = 'https://brandonsanderson.com/'
+scrape_url = 'https://brandonsanderson.com/'
 
 # query the website and return the html to the variable 'page'
-page = requests.get(url)
+page = requests.get(scrape_url)
 
 # parse the html using beautiful soup and store in variable `soup`
 soup = BeautifulSoup(page.text, 'html.parser')
@@ -55,7 +66,8 @@ else:
         index += 1
 
     try:
-        save_file = open("lastupdate", "r")
+        print()
+        save_file = open(last_update_file, "r")
         last_update = save_file.read()
         save_file.close()
     except IOError:
@@ -64,7 +76,7 @@ else:
     # new update so update and send message(s)
     if last_update != final_output:
         print(final_output)
-        send_texts(final_output)
-        save_file = open("lastupdate", "w")
+        send_texts(final_output, config_file)
+        save_file = open(last_update_file, "w")
         save_file.write(final_output)
         save_file.close()
