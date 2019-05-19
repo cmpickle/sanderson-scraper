@@ -75,6 +75,10 @@ The tests are run using the make command `python3 test.py` in the project home d
 This is an example on how to deploy on a Debian linux machine that uses crontab to run the script on a regualr interval. This documentation does not cover the deployment of a self hosted Textbelt instance.
 
  1. Log into the mechine as a user with sudo permissions. For this example we will use `root` as the user. (Using `root` isn't the best idea but used for simplicity sake for this example)
+	 ```
+	 ssh root@192.168.1.x
+	 ```
+	 * Change `root@192.168.1.x` to the user account with sudo permissions and the IP address of the server to deploy the script.
  2. Clone the repo.
 	``` 
 	git clone https://github.com/crabbymonkey/sanderson-scraper /var/www
