@@ -28,7 +28,7 @@ print("------------------------------------------------------------------------"
 print(datetime.datetime.now())
 
 # get path for project (this is needed to use crontab in linux)
-project_path = os.path.realpath(__file__)
+project_path = os.path.dirname(os.path.abspath(__file__))
 
 # set file names
 last_update_file = project_path + "/lastupdate"
