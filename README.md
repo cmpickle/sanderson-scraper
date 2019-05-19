@@ -108,6 +108,7 @@ This is an example on how to deploy on a Debian linux machine that uses crontab 
 	#Sanderson Scrapper
 	0 12  * * * root  /usr/bin/python3 /var/www/sanderson-scrapper/scrape.py >> /var/www/sanderson-scraper/log 2>&1
 	``` 
+	* **IMPORTANT: Change `root` in the above to the user account to be used.**
 	* This will make a new cron job that will run everyday at 12:00 for the timezon set for the mechine. *Note: This maybe set to UTC by default.*
 	* The output with any error messages can be viewed with `cat /var/www/sanderson-scaper/log`
 
