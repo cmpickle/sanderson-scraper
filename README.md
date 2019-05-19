@@ -72,7 +72,44 @@ The tests are run using the make command `python3 test.py` in the project home d
 
 ## Deployment
 
-How to get this up with the crontab
+This is an example on how to deploy on a Debian linux machine that uses crontab to run the script on a regualr interval. This documentation does not cover the deployment of a self hosted Textbelt instance.
+
+ 1. Log into the mechine as a user with sudo permissions. For this example we will use `root` as the user. (Using `root` isn't the best idea but used for simplicity sake for this example)
+ 2. Clone the repo.
+	``` 
+	git pull https://github.com/crabbymonkey/sanderson-scraper /var/www
+	```
+3. Enter the new repo.
+	```
+	cd /var/www/sanderson-scraper
+	```
+4. Create the `config.json` as descriped in the Installing section above.
+	```
+	vim config.json
+	```
+5. Install Python 3.0
+	```
+	sudo apt-get install python3
+	```
+6. Install Beautiful Soup 4
+	```
+	sudo apt-get install python3-bs4
+	```
+7. Test the code
+	```
+	python3 test.py
+	```
+8. Open the crontab to add a new job
+	```
+	sudo vim /etc/crontab
+	```
+9. Add the new cron job for the scraper
+	```
+	#Sanderson Scrapper
+	0 12  * * * root  /usr/bin/python3 /var/www/sanderson-scrapper/scrape.py >> /var/www/sanderson-scraper/log 2>&1
+	``` 
+	* This will make a new cron job that will run everyday at 12:00 for the timezon set for the mechine. *Note: This maybe set to UTC by default.*
+	* The output with any error messages can be viewed with `cat /var/www/sanderson-scaper/log`
 
 ## Built With
 
