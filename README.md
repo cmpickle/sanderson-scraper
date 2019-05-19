@@ -77,7 +77,7 @@ This is an example on how to deploy on a Debian linux machine that uses crontab 
  1. Log into the mechine as a user with sudo permissions. For this example we will use `root` as the user. (Using `root` isn't the best idea but used for simplicity sake for this example)
  2. Clone the repo.
 	``` 
-	git pull https://github.com/crabbymonkey/sanderson-scraper /var/www
+	git clone https://github.com/crabbymonkey/sanderson-scraper /var/www
 	```
 3. Enter the new repo.
 	```
