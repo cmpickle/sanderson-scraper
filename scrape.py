@@ -69,6 +69,9 @@ try:
         status = name.find(attrs={'class': status_boxs_html_name})
         status_boxs.append(status.extract())
 
+    if len(status_boxs) < 1:
+        raise RuntimeError("Could not find status boxs with html name " + status_boxs_html_name)
+
     # if problem with scrapping
     if len(name_boxs) != len(status_boxs) or len(name_boxs) == 0 or len(status_boxs) == 0: 
         raise RuntimeError("NUmber of Titles and Status arrays don't match.")
