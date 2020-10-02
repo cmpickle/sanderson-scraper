@@ -56,7 +56,6 @@ try:
         raise RuntimeError("Could not find progress bar with html name " + progress_bar_html_name)
     print("progress_bar:")
     print(progress_bar.prettify())
-    print()
 
     status_boxs = []
     
@@ -82,7 +81,7 @@ try:
         index = 0
         # create data string to be sent
         for name in name_boxs:
-            final_output += ("<br>  " + name.text.strip() + " - " + status_boxs[index].text)
+            final_output += ("\n" + name.text.strip() + " - " + status_boxs[index].text)
             index += 1
         try:
             print()
@@ -94,11 +93,14 @@ try:
 
         # new update so update and send message(s)
         if last_update != final_output:
-            print(final_output)
+            print(final_output.strip())
+            print()
             send_texts(final_output, config_file)
             save_file = open(last_update_file, "w")
             save_file.write(final_output)
             save_file.close()
+        else:
+            print("No change to the progress")
 except RuntimeError as err: 
     print("Error: " + str(err))
 except Exception as err: 
