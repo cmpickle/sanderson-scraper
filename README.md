@@ -6,7 +6,7 @@ This [Python 3.0](https://www.python.org/) script is a basic web scraper that wi
 ### Prerequisites
 
 * [Textbelt](https://textbelt.com/) or [Textbelt (Selfhost)](https://github.com/typpo/textbelt)
-* [Python 3.0](https://www.python.org/)
+* [Python 3](https://www.python.org/)
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 ### Installing
