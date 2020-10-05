@@ -51,6 +51,7 @@ class SandersonStatus:
 
     #TODO: add a json encoder and decoder for this object and use that for saving
 
+# TODO: add the possibility to use paied for textbelt
 def send_texts(message, config_file) -> dict:
     # this value is to check if every number errors which means there is a problem with the system
     success = False
@@ -82,7 +83,7 @@ def send_texts(message, config_file) -> dict:
                 'carrier': user['carrier'],
             }
 
-            # use the base url for text belt and the location (text is for usa) to make sure the api is sent to the correct handler
+            # use the base url for text belt and the location (text is for usa, canada for canada, intl for everyone else) to make sure the api is sent to the correct handler
             text_url = url_base + user['location_path']
             # send the api call that we created as a POST
             response = requests.post(text_url, headers=headers, data=json.dumps(payload))
@@ -104,8 +105,10 @@ def send_texts(message, config_file) -> dict:
 
             # print for logging
             print(response_log_str)
+
         # close the file
         failed_numbers_file.close()
+        
     # add blank line for logging
     print()
 
