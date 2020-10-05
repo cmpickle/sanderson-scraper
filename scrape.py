@@ -135,9 +135,11 @@ def get_values():
         for name in name_boxs:
             # use the status_boxs_html_name var to find the status in the name_boxs and take it out and save it separatly as status
             status = name.find(attrs={'class': status_boxs_html_name}).extract()
+
             # if it cannot find this value then there seems to be a change/issue with the formating, probably invetigate the site to find the issue
             if status is None:
                 raise RuntimeError("Could not find status boxs with html name " + status_boxs_html_name + " for the work " + name.text.strip())
+
             # add the work name and status strings to the return object
             current_status.add_work(name.text.strip(), status.text.strip())
     # if there is a RuntimeError handle it here to fail "gracefully"
@@ -166,6 +168,7 @@ def is_update(current_status):
 
         # get the saved map value
         last_update_work_status_map = json.loads(saved_work_status_map_json)
+        
         # don't forget to close the file (TODO: maybe use with open(last_update_file) as saved_file but not sure how that will handle returns in the middle of it so using close())
         saved_file.close()
 
@@ -210,10 +213,11 @@ status = get_values()
 if is_update(status):
     # create the message that will be sent
     update_message = create_update_message(status)
+
     # output for logging
     print(update_message.strip())
     print()
-    
+
     # send text messages
     try:
         # this is a map of failed numbers if you want to do somthing with it
@@ -224,6 +228,7 @@ if is_update(status):
     except RuntimeError as err:
         print("Error: " + str(err))
         sys.exit()
+
     # save the new update if all is successful
     save_update(status)
 else:
