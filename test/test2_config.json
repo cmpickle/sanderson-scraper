@@ -1,0 +1,15 @@
+{
+    "all_users": [
+        {
+            "number": 5551234567,
+            "carrier": "tmobile",
+            "location_path": "text"
+        },
+        {
+            "number": 7035555003,
+            "carrier": "tmobiles",
+            "location_path": "text"
+        }
+    ],
+    "url": "http://192.168.0.1:9090/"
+}
